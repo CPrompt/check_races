@@ -85,8 +85,8 @@ def main():
                     else:
                             formula1.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
                             settings.json_object.update_json("f1_list",formula1)
+                            print("F1 : " + str(formula1))
                             print("Grabbing info from site and updating Formula1 list")
-
 
 
 if __name__ == "__main__":

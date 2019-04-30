@@ -10,8 +10,7 @@ import settings
 import requests
 from urllib.request import Request, urlopen, urlretrieve
 
-#feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
-feedData = "/home/curtis/Programming/Python/check_races/static/config.json"
+feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
 
 
 page = Request("https://www.ettv.tv/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})

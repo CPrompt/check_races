@@ -3,6 +3,8 @@
 import ettv_scrape
 import scrape_torrent
 import settings
+import time
+
 '''
 First we need to run the ettv_scrape script
     this will update the json file with the newest info
@@ -24,7 +26,6 @@ if __name__ == "__main__":
 
     ettv_scrape.main()
 
-
     if(settings.moto_partition[0] != settings.json_object.output_config()["motogp_title"]):
         settings.json_object.update_json("motogp_title", settings.moto_partition[0])
         settings.json_object.update_json("motogp_link", settings.moto_partition[2])
@@ -42,7 +43,6 @@ if __name__ == "__main__":
     else:
         settings.json_object.update_json("formula1_update","No")
         print("F1 information the same")
-
 
     scrape_torrent.grab_torrent()
 
