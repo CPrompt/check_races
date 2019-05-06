@@ -1,23 +1,8 @@
 {
-    "f1_list": [
-        "Formula.1.2019x03.China.Race.SkyF1HD.SD : https://ettv.tv/torrent/376551/formula-1-2019x03-china-race-skyf1hd-sd",
-        "Formula.1.2019x02.Bahrain.Race.SkyF1HD.SD : https://ettv.tv/torrent/361335/formula-1-2019x02-bahrain-race-skyf1hd-sd"
-    ],
-    "formula1_link": " https://ettv.tv/torrent/376551/formula-1-2019x03-china-race-skyf1hd-sd",
-    "formula1_title": "Formula.1.2019x03.China.Race.SkyF1HD.SD ",
+    "formula1_title": "Formula.1.2019x04.Azerbaijan.Race.SkyF1HD.SD : https://ettv.tv/torrent/388430/formula-1-2019x04-azerbaijan-race-skyf1hd-sd",
     "formula1_update": "No",
-    "formula1_watch_directory_base": "/home/curtis/Desktop/test/f1/",
-    "motogp_link": " https://ettv.tv/torrent/377057/motogp-2019x03-usa-race-btsporthd-sd",
-    "motogp_list": [
-        "MotoGP.2019x03.USA.Race.BTSportHD.SD : https://ettv.tv/torrent/377057/motogp-2019x03-usa-race-btsporthd-sd",
-        "MotoGP.2019x02.Argentina.Race.BTSportHD.SD : https://ettv.tv/torrent/361424/motogp-2019x02-argentina-race-btsporthd-sd"
-    ],
-    "motogp_title": "MotoGP.2019x03.USA.Race.BTSportHD.SD ",
+    "formula1_watch_directory_base": "/path/to/f1/watch/folder",
+    "motogp_title": "MotoGP.2019x04.Spain.Race.BTSportHD.SD : https://ettv.tv/torrent/395293/motogp-2019x04-spain-race-btsporthd-sd",
     "motogp_update": "No",
-    "motogp_watch_directory_base": "/home/curtis/Desktop/test/motogp/",
-    "race_dates": [
-        "2019-03-10",
-        "2019-03-31",
-        "2019-04-14"
-    ]
+    "motogp_watch_directory_base": "/path/to/motogp/watch/folder"
 }
