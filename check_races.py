@@ -25,29 +25,12 @@ import update_json
 import read_json
 import send_email
 
-'''
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-import loginfo.creds as Secrets
-'''
 
 # vars
 page = Request("https://www.ettv.tv/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
 webpage = urlopen(page).read()
 soup = BeautifulSoup(webpage,'html.parser')
 feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
-
-'''
-# email vars
-fromEmail = Secrets.login['fromEmail']
-toEmail = Secrets.login['toEmail']
-emailLogin = Secrets.login['emailLogin']
-emailPass = Secrets.login['emailPass']
-emailServer = Secrets.login['emailServer']
-emailPort = Secrets.login['emailPort']
-'''
 
 
 # All the crazy lists that I have to add info to and then parse out
@@ -59,47 +42,6 @@ races = []
 motogp = []
 formula1 = []
 
-
-'''
-    functions to read the json config file
-    this is where we store all the info about the race
-    and if it's new or not
-'''
-'''
-def read_json(myFeed):
-    try:
-        json_data = open(myFeed)
-        data = json.load(json_data)
-    except:
-        print("Can't open")
-    return data
-
-def use_list(passed_list):
-    return passed_list
-
-def output_config():
-    returned_list = read_json(feedData)
-    config_dict = use_list(returned_list)
-    return config_dict
-'''
-
-'''
-    function to update the json file with
-    either what we scrape from the site
-    or setting the update to no
-'''
-'''
-def updateJsonFile(json_key,json_value):
-    jsonFile = open(feedData,"r")
-    data = json.load(jsonFile)
-    jsonFile.close()
-
-    data[json_key] = json_value
-
-    jsonFile = open(feedData, "w+")
-    jsonFile.write(json.dumps(data,indent=4,sort_keys=True))
-    jsonFile.close
-'''
 
 '''
     function to actually scrape where the torrent is from
@@ -115,30 +57,6 @@ def scrape_page(page):
     for a in soup.find_all("a", {"class":"download_link file"}):
         torrent_file = a['href']
         return(torrent_file)
-
-
-'''
-    function to send SMS via email
-'''
-'''
-def send_email(emailSubject,emailBody):
-    msg = MIMEMultipart()
-    msg['From'] = fromEmail
-    msg['To'] = toEmail
-    msg['Subject'] = emailSubject
-
-    body = emailBody
-
-    msg.attach(MIMEText(body,'plain'))
-
-    s = smtplib.SMTP(emailServer,emailPort)
-    s.ehlo()
-    s.starttls()
-    s.login(emailLogin,emailPass)
-    text = msg.as_string()
-    s.sendmail(fromEmail,toEmail,text)
-    s.quit()
-'''
 
 '''
     Main function will simply scrape the page finding where the MotoGP and F1 info is for Races, 2019 and in SD
