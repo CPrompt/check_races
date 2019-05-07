@@ -20,12 +20,26 @@ import subprocess
 import glob
 import shutil
 import json
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+import loginfo.creds as Secrets
+
 
 # vars
 page = Request("https://www.ettv.tv/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
 webpage = urlopen(page).read()
 soup = BeautifulSoup(webpage,'html.parser')
 feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
+
+# email vars
+fromEmail = Secrets.login['fromEmail']
+toEmail = Secrets.login['toEmail']
+emailLogin = Secrets.login['emailLogin']
+emailPass = Secrets.login['emailPass']
+emailServer = Secrets.login['emailServer']
+emailPort = Secrets.login['emailPort']
 
 
 
@@ -95,6 +109,28 @@ def scrape_page(page):
 
 
 '''
+    function to send SMS via email
+'''
+def send_email(emailSubject,emailBody):
+    msg = MIMEMultipart()
+    msg['From'] = fromEmail
+    msg['To'] = toEmail
+    msg['Subject'] = emailSubject
+
+    body = emailBody
+
+    msg.attach(MIMEText(body,'plain'))
+
+    s = smtplib.SMTP(emailServer,emailPort)
+    s.ehlo()
+    s.starttls()
+    s.login(emailLogin,emailPass)
+    text = msg.as_string()
+    s.sendmail(fromEmail,toEmail,text)
+    s.quit()
+
+
+'''
     Main function will simply scrape the page finding where the MotoGP and F1 info is for Races, 2019 and in SD
     Then we are going to grab that info and update the list in the JSON file /static/config.json
     The config.json file is used to determine if the latest race is new or not
@@ -135,6 +171,8 @@ def main():
         subprocess.call(["wget",torrent_file,"-P",motogp_watch])
         updateJsonFile("motogp_update","No")
 
+        send_email("New MotoGP Race",motogp[0])
+
     else:
         return
 
@@ -147,6 +185,8 @@ def main():
         scrape_page(formula1_partition[2])
         subprocess.call(["wget",torrent_file,"-P",formula1_watch])
         updateJsonFile("formula1_update","No")
+
+        send_email("New Formula 1 Race", formula1[0])
 
     else:
         return
