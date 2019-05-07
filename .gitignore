@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 *.py.swp
 
+# Backup Files
+*.*.bak
+
 # C extensions
 *.so
 
