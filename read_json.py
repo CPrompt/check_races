@@ -7,6 +7,7 @@
 '''
 
 import json
+import os
 
 feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
 
@@ -26,3 +27,6 @@ def output_config():
     config_dict = use_list(returned_list)
     return config_dict
 
+if __name__ == "__main__":
+    motogp_title = output_config()["motogp_title"]
+    print(motogp_title)
