@@ -18,7 +18,7 @@ def read_json(myFeed):
 
 def output_config():
     returned_list = read_json(feedData)
-    return config_dict
+    return returned_list
 
 if __name__ == "__main__":
     motogp_title = output_config()["motogp_title"]
