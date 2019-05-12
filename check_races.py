@@ -87,6 +87,7 @@ def main():
                             motogp.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
                     else:
                             formula1.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
+    print(formula1[0])
 
 
     if(read_json.output_config()["motogp_title"] != str(motogp[0])):
