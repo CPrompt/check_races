@@ -4,6 +4,9 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import loginfo.creds as Secrets
+import read_json
+import update_json
+
 
 # email vars
 fromEmail = Secrets.login['fromEmail']
@@ -35,3 +38,14 @@ def send_email(emailSubject,emailBody):
     s.sendmail(fromEmail,toEmail,text)
     s.quit()
 
+
+if __name__ == "__main__":
+    if read_json.output_config()["motogp_rtorrent_email"] == "No":
+        motogp_partition = read_json.output_config()["motogp_title"].partition(":")
+        send_email("New MotoGP Race ready to watch",motogp_partition[0])
+        update_json.updateJsonFile("motogp_rtorrent_email","Yes")
+
+    if read_json.output_config()["formula1_rtorrent_email"] == "No":
+        motogp_partition = read_json.output_config()["formula1_title"].partition(":")
+        send_email("New Formula1 Race ready to watch",motogp_partition[0])
+        update_json.updateJsonFile("formula1_rtorrent_email","Yes")
