@@ -22,4 +22,4 @@ def output_config():
 
 if __name__ == "__main__":
     motogp_title = output_config()["motogp_title"]
-    print(type(motogp_title))
+    print(motogp_title)
