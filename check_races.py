@@ -87,7 +87,6 @@ def main():
                             motogp.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
                     else:
                             formula1.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
-    print(formula1[0])
 
 
     if(read_json.output_config()["motogp_title"] != str(motogp[0])):
@@ -102,8 +101,6 @@ def main():
 
         send_email.send_email("New MotoGP Race",motogp[0])
 
-    else:
-        return
 
     if(read_json.output_config()["formula1_title"] != str(formula1[0])):
         update_json.updateJsonFile("formula1_title",formula1[0])
@@ -117,8 +114,6 @@ def main():
 
         send_email.send_email("New Formula 1 Race", formula1[0])
 
-    else:
-        return
 
 
 if __name__ == "__main__":
