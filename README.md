@@ -21,7 +21,11 @@ Once that informatin is scraped, we determine if the title contains "MotoGP" or 
 
 At this point, we can use the information grabbed and see if it matches what is in the "staic//config.json" file.
 If they are the same, do nothing.  It they are different add the title and the href information to the json file.
-The result will be something like : "Formula.1.2019x04.Azerbaijan.Race.SkyF1HD.SD : https://ettv.tv/torrent/388430/formula-1-2019x04-azerbaijan-race-skyf1hd-sd"
+The result will be something like : 
+
+```
+"Formula.1.2019x04.Azerbaijan.Race.SkyF1HD.SD : https://ettv.tv/torrent/388430/formula-1-2019x04-azerbaijan-race-skyf1hd-sd"
+```
 
 The href portion contains the page where the torrent link is.  Since this is a new torrent, we scrape that page using the function "scrape\_page"
 
