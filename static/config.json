@@ -1,8 +1,10 @@
 {
-    "formula1_title": "Formula.1.2019x04.Azerbaijan.Race.SkyF1HD.SD : https://ettv.tv/torrent/388430/formula-1-2019x04-azerbaijan-race-skyf1hd-sd",
-    "formula1_update": "No",
-    "formula1_watch_directory_base": "/path/to/f1/watch/folder",
-    "motogp_title": "MotoGP.2019x04.Spain.Race.BTSportHD.SD : https://ettv.tv/torrent/395293/motogp-2019x04-spain-race-btsporthd-sd",
-    "motogp_update": "No",
-    "motogp_watch_directory_base": "/path/to/motogp/watch/folder"
+	"formula1_title": "Formula.1.2019x04.Azerbaijan.Race.SkyF1HD.SD : https://ettv.tv/torrent/388430/formula-1-2019x04-azerbaijan-race-skyf1hd-sd",
+	"formula1_update": "No",
+	"formula1_watch_directory_base": "/path/to/f1/watch/folder",
+	"formula1_rtorrent_email":"No",
+	"motogp_title": "MotoGP.2019x04.Spain.Race.BTSportHD.SD : https://ettv.tv/torrent/395293/motogp-2019x04-spain-race-btsporthd-sd",
+	"motogp_update": "No",
+	"motogp_watch_directory_base": "/path/to/motogp/watch/folder",
+	"motogp_rtorrent_email":"No"
 }
