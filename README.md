@@ -19,7 +19,7 @@ From there, we scrape out the "title" and the "href"
 
 Once that informatin is scraped, we determine if the title contains "MotoGP" or "Formula.1" and add each to their appropriate lists.
 
-At this point, we can use the information grabbed and see if it matches what is in the "staic//config.json" file.
+At this point, we can use the information grabbed and see if it matches what is in the "static/config.json" file.
 If they are the same, do nothing.  It they are different add the title and the href information to the json file.
 The result will be something like :
 
