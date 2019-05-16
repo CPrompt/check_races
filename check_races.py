@@ -98,6 +98,7 @@ def main():
         scrape_page(motogp_partition[2])
         subprocess.call(["wget",torrent_file,"-P",motogp_watch])
         update_json.updateJsonFile("motogp_update","No")
+        update_json.updateJsonFile("motogp_rtorrent_email","No")
 
         send_email.send_email("New MotoGP Race",motogp[0])
 
@@ -111,6 +112,7 @@ def main():
         scrape_page(formula1_partition[2])
         subprocess.call(["wget",torrent_file,"-P",formula1_watch])
         update_json.updateJsonFile("formula1_update","No")
+        update_json.updateJsonFile("formula1_rtorrent_email","No")
 
         send_email.send_email("New Formula 1 Race", formula1[0])
 
