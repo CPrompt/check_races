@@ -29,7 +29,7 @@ The result will be something like :
 
 The href portion contains the page where the torrent link is.  Since this is a new torrent, we scrape that page using the function "scrape\_page"
 
-The last step is to simply use wget to download the torrent file that is linked.  We specify the directory in the "static//config.json" file for each differnt race.
+The last step is to simply use wget to download the torrent file that is linked.  We specify the directory in the "static/config.json" file for each differnt race.
 From there, rtorrent is used to download the file.
 
 Rtorrent can also send notification when a download is complete.  To do this we can simply use a bash file to call the "send\_email.py" script.  That is the reason the call to main
@@ -49,7 +49,7 @@ login = {
 	"emailPort": "<SMTP SERVER PORT>"													        }
 ```
 
-In the file "static//config.json", you will need to specify the directories you would like the downloads to end up.
+In the file "static/config.json", you will need to specify the directories you would like the downloads to end up.
 
 ```python
 "formula1_watch_directory_base": "/path/to/f1/watch/folder"
