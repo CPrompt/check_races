@@ -46,7 +46,7 @@ login = {
 	"emailLogin": "<SMTP LOGIN USER>",
 	"emailPass": "<SMTP LOGIN PASSWORD>",
 	"emailServer": "<SMTP SERVER>",
-	"emailPort": "<SMTP SERVER PORT>"													        }
+	"emailPort": "<SMTP SERVER PORT>"												}
 ```
 
 In the file "static/config.json", you will need to specify the directories you would like the downloads to end up.
