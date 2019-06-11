@@ -9,7 +9,7 @@ __pycache__/
 *.*.bak
 
 *.*.bak
-
+*.org
 # C extensions
 *.so
 
