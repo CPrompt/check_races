@@ -78,45 +78,57 @@ def main():
             if all(word in entries for word in key_word):
                     races.append(entries)
 
+
     for items in races:
             for a in soup.find_all("a",attrs={"title": re.compile(items)}):
                     torrent_link = a["href"]
                     torrent_title = a["title"]
 
                     if("MotoGP" in torrent_title):
-                            motogp.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
-                    else:
-                            formula1.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
+                        motogp.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
 
+                    if("Formula" in torrent_title):
+                        formula1.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
 
-    if(read_json.output_config()["motogp_title"] != str(motogp[0])):
-        update_json.updateJsonFile("motogp_title",motogp[0])
-        update_json.updateJsonFile("motogp_update","Yes")
-        motogp_output = read_json.output_config()["motogp_title"]
-        motogp_partition = (motogp_output.partition(":"))
+    '''
+        now that the lists are built we check to see if what is in the config file
+        is the same as the first entry in the list.  If it is, we scrape the page.
+        If it's not, we need to do something so we just change the update status
+        to "no".  This seems a bit of a hack because if there are no entries
+        to build the list, it errors.  So I just added an exception to catch it
+        and do something.
+    '''
+    try:
+        if(read_json.output_config()["motogp_title"] != str(motogp[0])):
+            update_json.updateJsonFile("motogp_title",motogp[0])
+            update_json.updateJsonFile("motogp_update","Yes")
+            motogp_output = read_json.output_config()["motogp_title"]
+            motogp_partition = (motogp_output.partition(":"))
 
-        scrape_page(motogp_partition[2])
-        subprocess.call(["wget",torrent_file,"-P",motogp_watch])
+            scrape_page(motogp_partition[2])
+            subprocess.call(["wget",torrent_file,"-P",motogp_watch])
+            update_json.updateJsonFile("motogp_update","No")
+            update_json.updateJsonFile("motogp_rtorrent_email","No")
+
+            send_email.send_email("New MotoGP Race",motogp[0])
+    except:
         update_json.updateJsonFile("motogp_update","No")
-        update_json.updateJsonFile("motogp_rtorrent_email","No")
 
-        send_email.send_email("New MotoGP Race",motogp[0])
+    try:
+        if(read_json.output_config()["formula1_title"] != str(formula1[0])):
+            update_json.updateJsonFile("formula1_title",formula1[0])
+            update_json.updateJsonFile("formula1_update","Yes")
+            formula1_output = read_json.output_config()["formula1_title"]
+            formula1_partition = (formula1_output.partition(":"))
 
+            scrape_page(formula1_partition[2])
+            subprocess.call(["wget",torrent_file,"-P",formula1_watch])
+            update_json.updateJsonFile("formula1_update","No")
+            update_json.updateJsonFile("formula1_rtorrent_email","No")
 
-    if(read_json.output_config()["formula1_title"] != str(formula1[0])):
-        update_json.updateJsonFile("formula1_title",formula1[0])
-        update_json.updateJsonFile("formula1_update","Yes")
-        formula1_output = read_json.output_config()["formula1_title"]
-        formula1_partition = (formula1_output.partition(":"))
-
-        scrape_page(formula1_partition[2])
-        subprocess.call(["wget",torrent_file,"-P",formula1_watch])
+            send_email.send_email("New Formula 1 Race", formula1[0])
+    except:
         update_json.updateJsonFile("formula1_update","No")
-        update_json.updateJsonFile("formula1_rtorrent_email","No")
-
-        send_email.send_email("New Formula 1 Race", formula1[0])
-
-
 
 if __name__ == "__main__":
     main()
