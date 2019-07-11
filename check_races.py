@@ -17,8 +17,6 @@ import requests
 import re
 import os
 import subprocess
-import glob
-import shutil
 import json
 
 import update_json
@@ -149,10 +147,6 @@ def main():
                 # an actual torrent file
                 print("Processing a torrent file...")
                 subprocess.call(["wget",t_file,"-P",formula1_watch])
-
-                #update_json.updateJsonFile("formula1_update","No")
-                #update_json.updateJsonFile("formula1_rtorrent_email","No")
-                #send_email.send_email("New Formula 1 Race", formula1[0])
 
             else:
                 # here we need to run a different process
