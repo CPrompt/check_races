@@ -122,7 +122,7 @@ def main():
 
             update_json.updateJsonFile("motogp_update","No")
             update_json.updateJsonFile("motogp_rtorrent_email","No")
-            send_email.send_email("New MotoGP Race",motogp[0])
+            send_email.send_email("TESTING AGAIN!!!",motogp[0])
 
     except:
         update_json.updateJsonFile("motogp_update","No")
@@ -156,9 +156,9 @@ def main():
                 print("Processing a magnet...")
                 m2t.magnet2torrent(t_file, formula1_watch + formula1_title[0].replace(" ","") + ".torrent")
 
-        update_json.updateJsonFile("formula1_update","No")
-        update_json.updateJsonFile("formula1_rtorrent_email","No")
-        send_email.send_email("New Formula 1 Race", formula1[0])
+            update_json.updateJsonFile("formula1_update","No")
+            update_json.updateJsonFile("formula1_rtorrent_email","No")
+            send_email.send_email("New Formula 1 Race", formula1[0])
 
     except:
         update_json.updateJsonFile("formula1_update","No")
