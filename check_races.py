@@ -112,13 +112,15 @@ def main():
                 print("Processing a torrent file...")
                 subprocess.call(["wget",t_file,"-P",motogp_watch])
 
-            else:
+            if(t_title[1] == "magnet"):
+
+            #else:
                 # here we need to run a different process
                 # we can use the mag2torrent module to convert
                 # magnet to torrent and then move it to the
                 # proper watch folder
                 print("Processing a magnet...")
-                m2t.magnet2torrent(t_file, motogp_watch + motogp_title[0].replace(" ","") + ".torrent")
+                m2t.magnet2torrent(t_file, motogp_watch + motogp_partition[0].replace(" ","") + ".torrent")
 
             update_json.updateJsonFile("motogp_update","No")
             update_json.updateJsonFile("motogp_rtorrent_email","No")
@@ -148,13 +150,15 @@ def main():
                 print("Processing a torrent file...")
                 subprocess.call(["wget",t_file,"-P",formula1_watch])
 
-            else:
+            if(t_title[1] == "magnet"):
+
+            #else:
                 # here we need to run a different process
                 # we can use the mag2torrent module to convert
                 # magnet to torrent and then move it to the
                 # proper watch folder
                 print("Processing a magnet...")
-                m2t.magnet2torrent(t_file, formula1_watch + formula1_title[0].replace(" ","") + ".torrent")
+                m2t.magnet2torrent(t_file, formula1_watch + formula1_partition[0].replace(" ","") + ".torrent")
 
             update_json.updateJsonFile("formula1_update","No")
             update_json.updateJsonFile("formula1_rtorrent_email","No")
