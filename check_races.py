@@ -20,21 +20,23 @@ import subprocess
 import glob
 import shutil
 import json
+from datetime import datetime
 
 import update_json
 import read_json
 import send_email
 
+import Magnet_To_Torrent2 as m2t
 
 # vars
-page = Request("https://www.ettv.tv/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
+page = Request("https://www.ettvdl.com/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
 webpage = urlopen(page).read()
 soup = BeautifulSoup(webpage,'html.parser')
 feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
-
+time_now = str(datetime.now())
 
 # All the crazy lists that I have to add info to and then parse out
-key_word = ["2019", "Race", "SD"]
+key_word = ["2020", "Race", "SD"]
 race_types = ["Formula.1","MotoGP"]
 titles = []
 links = []
@@ -47,26 +49,30 @@ formula1 = []
     function to actually scrape where the torrent is from
     the link that we read from the json file
 '''
+class scrape:
 
-def scrape_page(page):
-    global torrent_file
+    def __init__(self,ettv_page):
+        self.page = Request(ettv_page,headers={'User-Agent': 'Mozilla5/0'})
+        self.webpage = urlopen(self.page).read()
+        self.soup = BeautifulSoup(self.webpage,'html.parser')
+        self.result = self.soup.find_all("a", class_="download_link")
 
-    page = Request(page,headers={'User-Agent': 'Mozilla5/0'})
-    webpage = urlopen(page).read()
-    soup = BeautifulSoup(webpage,'html.parser')
-    for a in soup.find_all("a", {"class":"download_link file"}):
-        torrent_file = a['href']
-        return(torrent_file)
+        for self.a in self.result:
+            self.torrent_title = self.a["class"]
+            self.torrent_file = self.a["href"]
+
 
 '''
     Main function will simply scrape the page finding where the MotoGP and F1 info is for Races, 2019 and in SD
     Then we are going to grab that info and update the list in the JSON file /static/config.json
     The config.json file is used to determine if the latest race is new or not
 '''
+
 def main():
 
     formula1_watch = read_json.output_config()["formula1_watch_directory_base"]
     motogp_watch = read_json.output_config()["motogp_watch_directory_base"]
+
 
     for data in soup.find_all('table', class_='table table-hover table-bordered'):
         for a in data.find_all('a'):
@@ -85,19 +91,14 @@ def main():
                     torrent_title = a["title"]
 
                     if("MotoGP" in torrent_title):
-                        motogp.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
+                        motogp.append(torrent_title + " : " + "https://ettvdl.com" + torrent_link)
+                        print(motogp)
 
                     if("Formula" in torrent_title):
-                        formula1.append(torrent_title + " : " + "https://ettv.tv" + torrent_link)
+                        formula1.append(torrent_title + " : " + "https://ettvdl.com" + torrent_link)
+                        print(formula1)
 
-    '''
-        now that the lists are built we check to see if what is in the config file
-        is the same as the first entry in the list.  If it is, we scrape the page.
-        If it's not, we need to do something so we just change the update status
-        to "no".  This seems a bit of a hack because if there are no entries
-        to build the list, it errors.  So I just added an exception to catch it
-        and do something.
-    '''
+    # MotoGP
     try:
         if(read_json.output_config()["motogp_title"] != str(motogp[0])):
             update_json.updateJsonFile("motogp_title",motogp[0])
@@ -105,15 +106,38 @@ def main():
             motogp_output = read_json.output_config()["motogp_title"]
             motogp_partition = (motogp_output.partition(":"))
 
-            scrape_page(motogp_partition[2])
-            subprocess.call(["wget",torrent_file,"-P",motogp_watch])
+            t = scrape(motogp_partition[2])
+            t_title = t.torrent_title
+            t_file = t.torrent_file
+
+            # check if there is a file or just a magnet
+            if(t_title[1] == "file"):
+                # here we can proceed with the wget method since we have
+                # an actual torrent file
+                print("Processing a torrent file...")
+                subprocess.call(["wget",t_file,"-P",motogp_watch])
+
+            if(t_title[1] == "magnet"):
+
+            #else:
+                # here we need to run a different process
+                # we can use the mag2torrent module to convert
+                # magnet to torrent and then move it to the
+                # proper watch folder
+                print("Processing a magnet...")
+                m2t.magnet2torrent(t_file, motogp_watch + motogp_partition[0].replace(" ","") + ".torrent")
+
+            update_json.updateJsonFile("last_run",time_now)
             update_json.updateJsonFile("motogp_update","No")
             update_json.updateJsonFile("motogp_rtorrent_email","No")
-
             send_email.send_email("New MotoGP Race",motogp[0])
+
     except:
         update_json.updateJsonFile("motogp_update","No")
+        update_json.updateJsonFile("last_run",time_now)
 
+
+    # Formula 1
     try:
         if(read_json.output_config()["formula1_title"] != str(formula1[0])):
             update_json.updateJsonFile("formula1_title",formula1[0])
@@ -121,14 +145,38 @@ def main():
             formula1_output = read_json.output_config()["formula1_title"]
             formula1_partition = (formula1_output.partition(":"))
 
-            scrape_page(formula1_partition[2])
-            subprocess.call(["wget",torrent_file,"-P",formula1_watch])
+            t = scrape(formula1_partition[2])
+            t_title = t.torrent_title
+            t_file = t.torrent_file
+
+
+            # check if there is a file or just a magnet
+            if(t_title[1] == "file"):
+                # here we can proceed with the wget method since we have
+                # an actual torrent file
+                print("Processing a torrent file...")
+                subprocess.call(["wget",t_file,"-P",formula1_watch])
+
+            if(t_title[1] == "magnet"):
+
+            #else:
+                # here we need to run a different process
+                # we can use the mag2torrent module to convert
+                # magnet to torrent and then move it to the
+                # proper watch folder
+                print("Processing a magnet...")
+                m2t.magnet2torrent(t_file, formula1_watch + formula1_partition[0].replace(" ","") + ".torrent")
+
+
+            update_json.updateJsonFile("last_run",time_now)
             update_json.updateJsonFile("formula1_update","No")
             update_json.updateJsonFile("formula1_rtorrent_email","No")
-
             send_email.send_email("New Formula 1 Race", formula1[0])
+
     except:
+        update_json.updateJsonFile("last_run",time_now)
         update_json.updateJsonFile("formula1_update","No")
 
 if __name__ == "__main__":
+    print(time_now)
     main()
