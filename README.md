@@ -28,6 +28,8 @@ The result will be something like :
 ```
 
 The href portion contains the page where the torrent link is.  Since this is a new torrent, we scrape that page using the function "scrape\_page"
+There has been the situation that there is not torrent link, but instead there is a magnet link.  For this I have added the section to use Dan Folkes' Magnet\_To\_Torrent2 script.
+You will need to add this script to the root directory of check\_races.  The script can be found here: [Magnet\_To\_Torrent2](https://github.com/danfolkes/Magnet2Torrent)
 
 The last step is to simply use wget to download the torrent file that is linked.  We specify the directory in the "static/config.json" file for each differnt race.
 From there, rtorrent is used to download the file.
