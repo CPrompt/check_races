@@ -29,14 +29,15 @@ import send_email
 import Magnet_To_Torrent2 as m2t
 
 # vars
-page = Request("https://www.ettvdl.com/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
+#page = Request("https://www.ettvdl.com/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
+page = Request("https://www.ettvcentral.com/user/smcgill1969/index.html", headers={'User-Agent': 'Mozilla5/0'})
 webpage = urlopen(page).read()
 soup = BeautifulSoup(webpage,'html.parser')
 feedData = os.path.dirname(os.path.realpath(__file__)) + "/static/config.json"
 time_now = str(datetime.now())
 
 # All the crazy lists that I have to add info to and then parse out
-key_word = ["2020", "Race", "SD"]
+key_word = ["2021", "Race", "SD"]
 race_types = ["Formula.1","MotoGP"]
 titles = []
 links = []
@@ -55,7 +56,7 @@ class scrape:
         self.page = Request(ettv_page,headers={'User-Agent': 'Mozilla5/0'})
         self.webpage = urlopen(self.page).read()
         self.soup = BeautifulSoup(self.webpage,'html.parser')
-        self.result = self.soup.find_all("a", class_="download_link")
+        self.result = self.soup.find_all("a", class_="download_link file")
 
         for self.a in self.result:
             self.torrent_title = self.a["class"]
