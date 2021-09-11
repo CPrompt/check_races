@@ -139,7 +139,8 @@ def main():
 
             if(t.torrent_text == "Download Torrent (File)"):
                 print("Torrent found....proceed with download")
-                subprocess.call(["wget",t.torrent_link,"-P",motogp_watch])
+                subprocess.call(["wget",t.torrent_link,"-P",formula1_watch])
+
 
                 #update the json file with information
                 update_json.updateJsonFile("last_run",time_now)
