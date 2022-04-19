@@ -1,5 +1,8 @@
 # check_races
 
+# This script is deprecated since ettv is gone
+# Please see https://github.com/CPrompt/rss_watch
+
 This script monitors the page on ettv for the MotoGP and F1 races uploaded by a single user SMcGill1969.
 
 ### Process:
